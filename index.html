@@ -14,7 +14,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
 button,input,select,textarea{font:inherit}
-button{cursor:pointer}
+button{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .hidden{display:none!important}
 .app{min-height:100vh}
 .top{position:sticky;top:0;z-index:30;background:rgba(15,23,42,.97);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 16px}
@@ -61,7 +61,15 @@ button{cursor:pointer}
 .prod .pi{font-size:30px}.prod .pn{font-weight:950;margin-top:8px}.prod .pp{font-size:24px;font-weight:950;color:#047857;margin-top:12px}
 .cart{position:sticky;top:77px;max-height:calc(100vh - 95px);display:flex;flex-direction:column}.cart-list{overflow:auto;min-height:220px;flex:1}
 .cart-row{display:grid;grid-template-columns:1fr 72px 42px;gap:8px;align-items:center;background:#f8fafc;border-radius:14px;padding:9px;margin-bottom:8px}
-.qty{border:0;background:#2563eb;color:#fff;border-radius:11px;padding:10px;font-weight:950}.remove{border:0;background:#ef4444;color:#fff;border-radius:11px;height:42px;font-size:20px}
+.qty{border:0;background:#2563eb;color:#fff;border-radius:13px;padding:12px;font-weight:950;font-size:21px;min-width:68px;min-height:48px}.remove{border:0;background:#ef4444;color:#fff;border-radius:11px;height:48px;font-size:22px}
+.touch-qty-display{font-size:56px;font-weight:950;text-align:center;background:#f1f5f9;border-radius:18px;padding:14px;margin:12px 0;min-height:88px;display:grid;place-items:center}
+.touch-qty-help{text-align:center;color:#64748b;font-size:13px;margin-top:-4px;margin-bottom:12px}
+.touch-qty-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.touch-qty-keys button{height:76px;border:0;border-radius:17px;background:#e2e8f0;font-size:29px;font-weight:950;touch-action:manipulation}
+.touch-qty-keys button:active{transform:scale(.97);background:#cbd5e1}
+.touch-qty-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.touch-qty-actions button{min-height:58px;font-size:17px}
+
 .total{display:flex;justify-content:space-between;border-top:2px solid var(--line);padding-top:13px;font-size:31px;font-weight:950}
 .ticket{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#fff;border:1px solid #d1d5db;padding:18px;max-width:320px;margin:auto;box-shadow:0 8px 25px rgba(15,23,42,.12)}
 .barcode{height:58px;margin:12px 0;background:repeating-linear-gradient(90deg,#000 0 2px,#fff 2px 4px,#000 4px 7px,#fff 7px 9px,#000 9px 10px,#fff 10px 13px)}
@@ -223,7 +231,7 @@ function counter(){
  <div class="hero"><div><h1>🧾 Mostrador</h1><p>Atendiendo: <b>${S.worker}</b> · cada toque agrega 1 pieza.</p></div><div><button class="btn amber" id="inventoryLock">🔒 Inventario</button></div></div>
  <div class="products-layout"><section><div class="cats">${cats.map(c=>`<button class="cat ${c===S.counterCat?'active':''}" data-cat="${c}">${c}</button>`).join('')}</div>
  <div class="prod-grid">${visible.map(p=>`<button class="prod" data-prod="${p.id}"><div class="pi">${p.icon}</div><div class="pn">${p.name}</div><div style="color:#64748b;font-size:12px">Stock: ${S.stock[p.id]||0}</div><div class="pp">${money(p.price)}</div></button>`).join('')}</div></section>
- <aside class="card cart"><h2 style="margin-top:0">🧾 Pedido</h2><div class="cart-list">${items.length?items.map(i=>`<div class="cart-row"><div><b>${i.p.name}</b><div style="color:#64748b">${money(i.p.price)} c/u</div></div><button class="qty">${i.q}</button><button class="remove" data-rem="${i.p.id}">×</button></div>`).join(''):'<div style="color:#64748b;text-align:center;padding:30px">Toca un producto para comenzar.</div>'}</div>
+ <aside class="card cart"><h2 style="margin-top:0">🧾 Pedido</h2><div class="cart-list">${items.length?items.map(i=>`<div class="cart-row"><div><b>${i.p.name}</b><div style="color:#64748b">${money(i.p.price)} c/u</div></div><button class="qty" data-qty="${i.p.id}" aria-label="Cambiar cantidad de ${i.p.name}">${i.q}</button><button class="remove" data-rem="${i.p.id}">×</button></div>`).join(''):'<div style="color:#64748b;text-align:center;padding:30px">Toca un producto para comenzar.</div>'}</div>
  <div class="total"><span>TOTAL</span><span>${money(total)}</span></div><button class="btn green" id="printOrder" style="margin-top:14px;padding:18px;font-size:19px" ${items.length?'':'disabled'}>🖨️ IMPRIMIR PASE A CAJA</button></aside></div></main>`;
 }
 function cashier(){
@@ -285,8 +293,14 @@ function bindOwner(){
 }
 function bindCounter(){
  $$('[data-cat]').forEach(b=>b.onclick=()=>{S.counterCat=b.dataset.cat;render()});
- $$('[data-prod]').forEach(b=>b.onclick=()=>{let p=S.products.find(x=>x.id===Number(b.dataset.prod));S.cart[p.id]||={p,q:0};S.cart[p.id].q++;render()});
+ $$('[data-prod]').forEach(b=>b.onclick=()=>{
+   let p=S.products.find(x=>x.id===Number(b.dataset.prod));
+   S.cart[p.id]||={p,q:0};
+   S.cart[p.id].q++;
+   render()
+ });
  $$('[data-rem]').forEach(b=>b.onclick=()=>{delete S.cart[b.dataset.rem];render()});
+ $$('[data-qty]').forEach(b=>b.onclick=()=>openTouchQuantity(Number(b.dataset.qty)));
  $('#printOrder')?.addEventListener('click',()=>{
    const items=Object.values(S.cart).map(i=>({id:i.p.id,name:i.p.name,price:i.p.price,q:i.q}));
    const next=S.orders.reduce((m,o)=>Math.max(m,Number(o.folio.split('-')[1])||0),0)+1, folio='PED-'+String(next).padStart(5,'0');
@@ -296,6 +310,96 @@ function bindCounter(){
  });
  $('#inventoryLock')?.addEventListener('click',()=>showUnlock());
 }
+
+function openTouchQuantity(productId){
+ const item=S.cart[productId];
+ if(!item)return;
+
+ // La primera tecla sustituye la cantidad actual.
+ // Ejemplo: si muestra 1 y se toca 6, queda 6; NO 16.
+ let digits=String(item.q);
+ let replaceOnNextDigit=true;
+
+ const ov=document.createElement('div');
+ ov.className='overlay';
+ ov.innerHTML=`<div class="modal">
+   <h2 style="text-align:center;margin-bottom:4px">🔢 Cantidad</h2>
+   <div style="text-align:center;font-weight:900">${item.p.name}</div>
+   <div class="touch-qty-display" id="touchQtyDisplay">${digits}</div>
+   <div class="touch-qty-help">La primera cifra reemplaza la cantidad actual.</div>
+
+   <div class="touch-qty-keys">
+     ${['1','2','3','4','5','6','7','8','9','C','0','⌫'].map(k=>`<button type="button" data-touch-key="${k}">${k}</button>`).join('')}
+   </div>
+
+   <div class="touch-qty-actions">
+     <button class="btn red" id="touchQtyCancel">CANCELAR</button>
+     <button class="btn green" id="touchQtyAccept">✓ ACEPTAR</button>
+   </div>
+ </div>`;
+
+ document.body.appendChild(ov);
+
+ const display=$('#touchQtyDisplay',ov);
+ const refresh=()=>display.textContent=digits||'0';
+
+ $$('[data-touch-key]',ov).forEach(btn=>btn.onclick=()=>{
+   const k=btn.dataset.touchKey;
+
+   if(k==='C'){
+     digits='';
+     replaceOnNextDigit=false;
+     refresh();
+     return;
+   }
+
+   if(k==='⌫'){
+     // Si todavía no se ha escrito una nueva cantidad,
+     // borrar comienza una captura nueva.
+     if(replaceOnNextDigit){
+       digits='';
+       replaceOnNextDigit=false;
+     }else{
+       digits=digits.slice(0,-1);
+     }
+     refresh();
+     return;
+   }
+
+   if(replaceOnNextDigit){
+     // ESTE es el comportamiento clave:
+     // 1 + tocar 6 => 6, no 16.
+     digits=k;
+     replaceOnNextDigit=false;
+   }else{
+     if(digits==='0') digits=k;
+     else if(digits.length<3) digits+=k;
+   }
+
+   refresh();
+ });
+
+ $('#touchQtyCancel',ov).onclick=()=>ov.remove();
+
+ $('#touchQtyAccept',ov).onclick=()=>{
+   const q=Number(digits);
+
+   if(!Number.isInteger(q) || q<1){
+     toast('La cantidad debe ser al menos 1');
+     return;
+   }
+
+   if(q>999){
+     toast('Cantidad máxima: 999');
+     return;
+   }
+
+   S.cart[productId].q=q;
+   ov.remove();
+   render();
+ };
+}
+
 function showTicket(o){
  const ov=document.createElement('div');ov.className='overlay';ov.innerHTML=`<div class="modal"><h2 style="text-align:center">🖨️ Pase a Caja</h2><div class="ticket"><div style="text-align:center"><b>PANADERÍA</b><br>PASE A CAJA<br><br><b>${o.folio}</b><br>Atendió: ${o.worker}</div><hr>${o.items.map(i=>`${i.q} x ${i.name}<span style="float:right">${money(i.q*i.price)}</span><br>`).join('')}<hr><b>TOTAL <span style="float:right">${money(o.total)}</span></b><br><br><div style="text-align:center">PENDIENTE DE PAGO</div><div class="barcode"></div><div style="text-align:center">${o.folio}</div></div><div class="modal-actions"><button class="btn primary" id="closeTicket">LISTO</button></div></div>`;document.body.appendChild(ov);$('#closeTicket',ov).onclick=()=>{ov.remove();render()};
 }
