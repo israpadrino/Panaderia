@@ -1,34 +1,330 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Panadería POS · Prototipo</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0f172a">
+<title>Panadería POS · Prototipo V2</title>
 <style>
-:root{--bg:#f1f5f9;--card:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--blue:#2563eb;--green:#059669;--red:#dc2626;--amber:#d97706;--dark:#0f172a;--r:20px}*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input{font:inherit}button{cursor:pointer}.hidden{display:none}.top{position:sticky;top:0;z-index:20;background:#0f172a;color:white;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:900;font-size:20px}.nav{display:flex;gap:8px;flex-wrap:wrap}.nav button{border:0;background:#1e293b;color:#cbd5e1;padding:10px 12px;border-radius:12px;font-weight:800}.nav button.active,.nav button:hover{background:#334155;color:white}.wrap{max-width:1450px;margin:auto;padding:20px}.card{background:white;border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:0 10px 30px #0f172a14}.grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.btn{border:0;border-radius:14px;padding:13px 18px;font-weight:900}.primary{background:var(--blue);color:white}.green{background:var(--green);color:white}.red{background:var(--red);color:white}.soft{background:#e2e8f0;color:#0f172a}.amber{background:#f59e0b}.muted{color:var(--muted)}.title{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:16px}.title h1{margin:0;font-size:34px}.metric .n{font-size:36px;font-weight:950;margin-top:6px}.metric .l{font-weight:800;color:var(--muted)}.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,#1d4ed8,#0f172a 55%,#020617)}.loginbox{width:min(460px,100%);background:white;border-radius:28px;padding:32px;box-shadow:0 30px 70px #0006}.logo{width:72px;height:72px;border-radius:22px;background:#f59e0b;display:grid;place-items:center;font-size:38px;margin:0 auto}.field{margin-top:16px}.field label{font-weight:900;display:block;margin-bottom:7px}.input{width:100%;padding:15px;border:2px solid #cbd5e1;border-radius:14px;outline:none}.input:focus{border-color:#2563eb}.hint{background:#eff6ff;color:#1e40af;padding:12px;border-radius:12px;margin-top:16px;font-size:13px}.products{display:grid;grid-template-columns:1fr 400px;gap:16px}.cats{display:flex;gap:8px;overflow:auto;margin-bottom:10px}.cat{white-space:nowrap;border:0;border-radius:14px;background:white;padding:13px 17px;font-weight:900}.cat.active{background:#0f172a;color:white}.prodgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.prod{border:2px solid #e2e8f0;background:white;border-radius:20px;min-height:135px;padding:16px;text-align:left}.prod b{font-size:19px}.price{font-size:26px;color:#047857;font-weight:950;margin-top:15px}.cartrow{display:grid;grid-template-columns:1fr 80px 45px;gap:8px;align-items:center;background:#f8fafc;padding:10px;border-radius:14px;margin-bottom:8px}.qty{border:0;border-radius:12px;background:#2563eb;color:white;padding:11px;font-size:20px;font-weight:950}.x{border:0;border-radius:12px;background:#ef4444;color:white;height:44px;font-size:20px}.total{display:flex;justify-content:space-between;border-top:2px solid var(--line);padding-top:14px;font-size:32px;font-weight:950}.cashbg{background:#020617;min-height:100vh;color:white;padding:18px}.cashgrid{display:grid;grid-template-columns:7fr 5fr;gap:16px}.orderbox{background:white;color:#0f172a;border-radius:22px;padding:18px;min-height:590px}.scan{display:flex;gap:10px;background:#0f172a;border:1px solid #334155;border-radius:18px;padding:14px;margin-bottom:14px}.scan input{flex:1;border:3px solid #3b82f6;border-radius:13px;padding:13px;font-size:22px;font-weight:900}.billgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.bill{height:90px;border:0;border-radius:20px;background:#15803d;color:white;font-size:32px;font-weight:950}.cashdisp,.change{background:#0f172a;border:1px solid #334155;border-radius:20px;padding:16px}.change{background:#1d4ed8}.change.warn{background:#d97706}.money{font-size:54px;font-weight:950}.pay{min-height:105px;border:0;border-radius:22px;background:#34d399;color:#052e16;font-size:28px;font-weight:950}.status{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900}.ok{background:#d1fae5;color:#065f46}.wait{background:#fef3c7;color:#92400e}.blue{background:#dbeafe;color:#1e40af}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px;border-bottom:1px solid var(--line);text-align:left}.table th{font-size:12px;color:var(--muted)}.music{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}.cover{aspect-ratio:1;border-radius:22px;background:linear-gradient(135deg,#7c3aed,#2563eb);display:grid;place-items:center;color:white;font-size:60px}.controls{display:flex;gap:9px;margin-top:14px}.circle{width:55px;height:55px;border-radius:50%;border:0;background:#0f172a;color:white;font-size:20px}.playlist{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:8px}.event{display:flex;gap:12px;padding:12px;border-bottom:1px solid var(--line)}.terminal{border:2px solid var(--line);border-radius:18px;padding:15px}.mode{background:#fffbeb;border:1px solid #fde68a;color:#92400e;padding:9px 12px;border-radius:12px;font-size:13px;font-weight:800;margin-bottom:12px}.toast{position:fixed;right:18px;bottom:18px;background:#0f172a;color:white;padding:13px 16px;border-radius:14px;z-index:100;box-shadow:0 20px 50px #0004}.overlay{position:fixed;inset:0;background:#020617bb;display:grid;place-items:center;padding:18px;z-index:80}.numpad{width:min(480px,95vw);background:white;border-radius:24px;padding:20px}.npdisp{text-align:center;background:#f1f5f9;padding:12px;border-radius:15px;font-size:54px;font-weight:950;margin:12px 0}.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.keys button{height:75px;border:0;border-radius:14px;background:#e2e8f0;font-size:28px;font-weight:950}@media(max-width:950px){.products,.cashgrid{grid-template-columns:1fr}.prodgrid{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(2,1fr)}.nav{display:none}}@media(max-width:600px){.wrap{padding:12px}.prodgrid{grid-template-columns:repeat(2,1fr)}.g2,.g3,.g4{grid-template-columns:1fr}.money{font-size:42px}.music{grid-template-columns:1fr}}
+:root{
+  --bg:#f5f7fb;--card:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;
+  --nav:#0f172a;--blue:#2563eb;--green:#059669;--red:#dc2626;--amber:#d97706;
+  --cyan:#0891b2;--violet:#7c3aed;--r:22px;--shadow:0 14px 40px rgba(15,23,42,.09)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.app{min-height:100vh}
+.top{position:sticky;top:0;z-index:30;background:rgba(15,23,42,.97);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 16px}
+.brand{display:flex;gap:10px;align-items:center;font-weight:950}
+.logo{width:42px;height:42px;border-radius:14px;background:#f59e0b;display:grid;place-items:center;font-size:24px}
+.top small{color:#cbd5e1}
+.top-actions{display:flex;gap:8px;align-items:center}
+.btn{border:0;border-radius:14px;padding:12px 16px;font-weight:900}
+.btn:active{transform:scale(.98)}
+.primary{background:var(--blue);color:#fff}.green{background:var(--green);color:#fff}.red{background:var(--red);color:#fff}
+.amber{background:#f59e0b;color:#111827}.soft{background:#e2e8f0;color:#0f172a}.dark{background:#1e293b;color:#fff}
+.wrap{max-width:1450px;margin:auto;padding:20px}
+.hero{display:flex;justify-content:space-between;gap:14px;align-items:end;margin-bottom:18px}
+.hero h1{margin:0;font-size:34px;letter-spacing:-1px}.hero p{margin:4px 0 0;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
+.grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.icon-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.icon-card{border:1px solid var(--line);background:#fff;border-radius:20px;padding:18px;text-align:left;min-height:132px;box-shadow:0 8px 24px rgba(15,23,42,.06)}
+.icon-card .ico{font-size:34px}.icon-card b{display:block;font-size:18px;margin-top:12px}.icon-card span{display:block;color:var(--muted);font-size:13px;margin-top:4px}
+.metric .label{font-size:12px;color:var(--muted);font-weight:900}.metric .n{font-size:34px;font-weight:950;margin-top:5px}
+.tag{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:950}.tag.ok{background:#d1fae5;color:#065f46}.tag.warn{background:#fef3c7;color:#92400e}.tag.bad{background:#fee2e2;color:#991b1b}.tag.info{background:#dbeafe;color:#1e40af}
+.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px;border-bottom:1px solid var(--line);text-align:left}.table th{font-size:11px;text-transform:uppercase;color:var(--muted)}
+.input{width:100%;border:2px solid #cbd5e1;border-radius:14px;padding:13px 14px;outline:none;background:#fff}.input:focus{border-color:var(--blue)}
+.field{margin-bottom:13px}.field label{display:block;font-weight:900;margin-bottom:6px}
+.screen-select{min-height:100vh;background:radial-gradient(circle at top,#1e3a8a,#0f172a 48%,#020617);display:grid;place-items:center;padding:24px}
+.select-box{width:min(780px,100%);background:#fff;border-radius:30px;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.34)}
+.device-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.device{border:2px solid var(--line);background:#fff;border-radius:22px;padding:22px;text-align:center}
+.device .dicon{font-size:52px}.device h3{margin:10px 0 4px}.device p{color:var(--muted);font-size:13px}
+.phone-shell{max-width:460px;margin:auto;background:#eef2f7;min-height:calc(100vh - 63px);padding:14px}
+.phone-header{background:#fff;border-radius:22px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.phone-header h2{margin:0}.phone-header .mini{color:var(--muted);margin-top:4px}
+.phone-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.phone-action{border:0;background:#fff;border-radius:20px;padding:18px;text-align:left;box-shadow:0 7px 22px rgba(15,23,42,.07);min-height:120px}
+.phone-action .ico{font-size:32px}.phone-action b{display:block;margin-top:9px;font-size:17px}.phone-action small{color:var(--muted)}
+.backline{display:flex;align-items:center;gap:10px;margin-bottom:14px}.backline button{border:0;background:#fff;border-radius:13px;padding:10px 12px;font-weight:900}
+.scan-box{border:2px dashed #94a3b8;border-radius:22px;background:#0f172a;color:#fff;min-height:230px;display:grid;place-items:center;text-align:center;padding:20px}
+.scan-reticle{width:180px;height:100px;border:3px solid #22c55e;border-radius:12px;position:relative;margin:auto}
+.scan-reticle:before,.scan-reticle:after{content:"";position:absolute;left:10px;right:10px;height:2px;background:#22c55e}.scan-reticle:before{top:28px}.scan-reticle:after{bottom:28px}
+.products-layout{display:grid;grid-template-columns:1fr 390px;gap:16px}
+.cats{display:flex;gap:9px;overflow:auto;padding-bottom:10px}.cat{white-space:nowrap;border:0;border-radius:15px;padding:12px 16px;font-weight:950;background:#fff}.cat.active{background:#0f172a;color:#fff}
+.prod-grid{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:12px}
+.prod{border:2px solid #e2e8f0;background:#fff;border-radius:20px;padding:17px;text-align:left;min-height:135px}.prod:active{background:#fffbeb}
+.prod .pi{font-size:30px}.prod .pn{font-weight:950;margin-top:8px}.prod .pp{font-size:24px;font-weight:950;color:#047857;margin-top:12px}
+.cart{position:sticky;top:77px;max-height:calc(100vh - 95px);display:flex;flex-direction:column}.cart-list{overflow:auto;min-height:220px;flex:1}
+.cart-row{display:grid;grid-template-columns:1fr 72px 42px;gap:8px;align-items:center;background:#f8fafc;border-radius:14px;padding:9px;margin-bottom:8px}
+.qty{border:0;background:#2563eb;color:#fff;border-radius:11px;padding:10px;font-weight:950}.remove{border:0;background:#ef4444;color:#fff;border-radius:11px;height:42px;font-size:20px}
+.total{display:flex;justify-content:space-between;border-top:2px solid var(--line);padding-top:13px;font-size:31px;font-weight:950}
+.ticket{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#fff;border:1px solid #d1d5db;padding:18px;max-width:320px;margin:auto;box-shadow:0 8px 25px rgba(15,23,42,.12)}
+.barcode{height:58px;margin:12px 0;background:repeating-linear-gradient(90deg,#000 0 2px,#fff 2px 4px,#000 4px 7px,#fff 7px 9px,#000 9px 10px,#fff 10px 13px)}
+.cash-bg{background:#020617;color:#fff;min-height:calc(100vh - 63px);padding:18px}
+.cash-grid{display:grid;grid-template-columns:7fr 5fr;gap:16px}.cash-panel{background:#fff;color:#0f172a;border-radius:24px;padding:18px;min-height:590px}
+.scanline{display:flex;gap:10px;margin-bottom:15px}.scanline input{flex:1;border-radius:14px;border:3px solid #3b82f6;padding:14px;font-size:22px;font-weight:900}
+.bill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.bill{height:86px;border:0;border-radius:20px;background:#15803d;color:#fff;font-size:30px;font-weight:950}
+.cashbox{background:#0f172a;border:1px solid #334155;border-radius:20px;padding:16px}.cashbox .money{font-size:48px;font-weight:950}
+.change{background:#1d4ed8;border-radius:20px;padding:16px}.change.warn{background:#b45309}.change .money{font-size:48px;font-weight:950}
+.pay{border:0;border-radius:22px;background:#34d399;color:#052e16;min-height:96px;font-size:27px;font-weight:950}
+.overlay{position:fixed;inset:0;background:rgba(2,6,23,.75);display:grid;place-items:center;z-index:80;padding:18px}
+.modal{width:min(520px,96vw);background:#fff;border-radius:26px;padding:22px}
+.modal h2{margin-top:0}.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+.pinpad{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.pinpad button{height:67px;border:0;border-radius:16px;background:#e2e8f0;font-size:24px;font-weight:950}
+.notice{padding:12px 14px;border-radius:14px;background:#eff6ff;color:#1e40af;font-size:13px}
+.toast{position:fixed;right:18px;bottom:18px;background:#0f172a;color:#fff;padding:13px 17px;border-radius:15px;z-index:100;box-shadow:0 18px 45px rgba(0,0,0,.3);max-width:360px}
+@media(max-width:1000px){
+  .icon-grid{grid-template-columns:repeat(2,1fr)}.products-layout,.cash-grid{grid-template-columns:1fr}.cart{position:static;max-height:none}.prod-grid{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+  .wrap{padding:12px}.device-grid{grid-template-columns:1fr}.g2,.g3,.g4{grid-template-columns:1fr}.prod-grid{grid-template-columns:repeat(2,1fr)}
+  .hero h1{font-size:28px}.top .brand span{display:none}.icon-grid{grid-template-columns:repeat(2,1fr)}
+}
 </style>
-</head><body><div id="app"></div><div id="toast" class="toast hidden"></div>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" class="toast hidden"></div>
+
 <script>
-const $=(q,r=document)=>r.querySelector(q), $$=(q,r=document)=>[...r.querySelectorAll(q)], money=n=>'$'+Number(n||0).toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2});
-const products=[{id:1,n:'Concha Vainilla',c:'Pan Dulce',p:12},{id:2,n:'Concha Chocolate',c:'Pan Dulce',p:12},{id:3,n:'Cuernito',c:'Pan Dulce',p:15},{id:4,n:'Dona Azúcar',c:'Pan Dulce',p:14},{id:5,n:'Oreja',c:'Pan Dulce',p:13},{id:6,n:'Bolillo',c:'Bolillos',p:4},{id:7,n:'Telera',c:'Bolillos',p:5},{id:8,n:'Baguette',c:'Bolillos',p:22},{id:9,n:'Rebanada Chocolate',c:'Repostería',p:34},{id:10,n:'Tres Leches',c:'Repostería',p:38},{id:11,n:'Muffin',c:'Repostería',p:25},{id:12,n:'Galleta',c:'Galletas',p:10},{id:13,n:'Polvorón',c:'Galletas',p:9}];
-const songs=['Morning Bakery','Coffee & Bread','Happy Counter'];
-const S={logged:sessionStorage.demo_owner==='1',view:'admin',cat:'Pan Dulce',cart:{},orders:JSON.parse(localStorage.demo_orders||'[]'),sel:null,received:0,volume:+(localStorage.demo_volume||55),playing:true,song:0,playlist:'Mañana tranquila',events:JSON.parse(localStorage.demo_security||'[]'),terms:JSON.parse(localStorage.demo_terminals||'[{"id":1,"name":"Mostrador 1","type":"COUNTER","status":"ACTIVA"},{"id":2,"name":"Caja 1","type":"CASHIER","status":"ACTIVA"}]')};
-function save(){localStorage.demo_orders=JSON.stringify(S.orders);localStorage.demo_security=JSON.stringify(S.events);localStorage.demo_terminals=JSON.stringify(S.terms);localStorage.demo_volume=S.volume}
-function toast(m){let t=$('#toast');t.textContent=m;t.classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.add('hidden'),2400)}
-function shell(x){let nav=[['admin','Dashboard'],['counter','Mostrador'],['cashier','Caja'],['music','Música'],['terminals','Terminales'],['security','Seguridad']];return `<div><header class="top"><div class="brand">🥖 Panadería POS</div><nav class="nav">${nav.map(v=>`<button data-view="${v[0]}" class="${S.view===v[0]?'active':''}">${v[1]}</button>`).join('')}</nav><div><span class="status blue">OWNER</span> <button id="logout" class="btn soft">Salir</button></div></header>${x}</div>`}
-function login(){return `<div class="login"><div class="loginbox"><div class="logo">🥐</div><h1 style="text-align:center">Panadería POS</h1><p class="muted" style="text-align:center">Acceso exclusivo del propietario</p><form id="login"><div class="field"><label>Usuario o correo</label><input class="input" value="admin"></div><div class="field"><label>Contraseña</label><input class="input" type="password" value="Panaderia2026!"></div><button class="btn primary" style="width:100%;margin-top:20px">INICIAR SESIÓN</button></form><div class="hint"><b>Prototipo:</b> cualquier credencial permite entrar. El sistema real valida MySQL, Argon2, dispositivo OWNER y correo.</div></div></div>`}
-function dashboard(){let paid=S.orders.filter(o=>o.status==='PAGADO'),sales=paid.reduce((a,o)=>a+o.total,0),pieces=paid.reduce((a,o)=>a+o.items.reduce((b,i)=>b+i.q,0),0);return shell(`<main class="wrap"><div class="title"><div><h1>Panel del dueño</h1><div class="muted">Resumen de la operación</div></div></div><div class="grid g4"><div class="card metric"><div class="l">VENTAS HOY</div><div class="n">${money(sales)}</div></div><div class="card metric"><div class="l">PIEZAS VENDIDAS</div><div class="n">${pieces}</div></div><div class="card metric"><div class="l">PENDIENTES</div><div class="n">${S.orders.filter(o=>o.status==='PENDIENTE').length}</div></div><div class="card metric"><div class="l">MÚSICA</div><div class="n">${S.playing?'▶':'⏸'} ${S.volume}%</div></div></div><div class="grid g2" style="margin-top:16px"><div class="card"><h3>Pedidos recientes</h3><table class="table"><tr><th>Folio</th><th>Estado</th><th>Total</th></tr>${S.orders.slice(-6).reverse().map(o=>`<tr><td><b>${o.folio}</b></td><td><span class="status ${o.status==='PAGADO'?'ok':'wait'}">${o.status}</span></td><td>${money(o.total)}</td></tr>`).join('')||'<tr><td colspan="3" class="muted">Sin pedidos todavía</td></tr>'}</table></div><div class="card"><h3>Terminales</h3>${S.terms.map(t=>`<div class="terminal" style="margin-top:8px"><b>${t.name}</b><div class="muted">${t.type}</div><span class="status ok">${t.status}</span></div>`).join('')}</div></div></main>`)}
-function counter(){let cats=[...new Set(products.map(p=>p.c))],vis=products.filter(p=>p.c===S.cat),items=Object.values(S.cart),tot=items.reduce((a,i)=>a+i.p.p*i.q,0);return shell(`<main class="wrap"><div class="mode">SIMULACIÓN · En producción esta pantalla queda bloqueada como terminal COUNTER.</div><div class="title"><div><h1>Mostrador</h1><div class="muted">Cada toque agrega una pieza. Toca la cantidad para usar el Numpad.</div></div></div><div class="products"><section><div class="cats">${cats.map(c=>`<button class="cat ${c===S.cat?'active':''}" data-cat="${c}">${c}</button>`).join('')}</div><div class="prodgrid">${vis.map(p=>`<button class="prod" data-prod="${p.id}"><b>${p.n}</b><div class="muted">${p.c}</div><div class="price">${money(p.p)}</div></button>`).join('')}</div></section><aside class="card"><h2>PEDIDO</h2><div style="min-height:250px">${items.map(i=>`<div class="cartrow"><div><b>${i.p.n}</b><div class="muted">${money(i.p.p)} c/u</div></div><button class="qty" data-qty="${i.p.id}">${i.q}</button><button class="x" data-x="${i.p.id}">×</button></div>`).join('')||'<div class="muted">Toca productos para comenzar.</div>'}</div><div class="total"><span>TOTAL</span><span>${money(tot)}</span></div><button id="create" class="btn green" style="width:100%;margin-top:14px;padding:18px" ${items.length?'':'disabled'}>IMPRIMIR TICKET</button></aside></div></main>`)}
-function cashier(){let o=S.sel,tot=o?.total||0,miss=Math.max(0,tot-S.received),chg=Math.max(0,S.received-tot);return `<div class="cashbg"><div class="mode" style="background:#172554;border-color:#1d4ed8;color:#bfdbfe">SIMULACIÓN · Caja CASHIER. Escribe manualmente PED-XXXXX mientras no haya escáner.</div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h1 style="font-size:40px;margin:0">CAJA</h1><button class="btn soft" data-view="admin">Volver</button></div><div class="scan"><input id="scan" placeholder="PED-00001"><button id="search" class="btn primary">BUSCAR</button></div><div class="cashgrid"><section class="orderbox">${!o?'<div style="height:540px;display:grid;place-items:center;text-align:center"><div><div style="font-size:70px">▥</div><h2>INGRESE PED-XXXXX</h2></div></div>':`<div style="display:flex;justify-content:space-between"><h2>${o.folio}</h2><span class="status ${o.status==='PAGADO'?'ok':'wait'}">${o.status}</span></div>${o.items.map(i=>`<div style="display:grid;grid-template-columns:70px 1fr 120px;gap:10px;background:#f8fafc;padding:12px;border-radius:13px;margin:7px 0"><b style="font-size:28px;text-align:center">${i.q}</b><b>${i.n}</b><b style="text-align:right">${money(i.p*i.q)}</b></div>`).join('')}<div class="total" style="font-size:46px;margin-top:16px"><span>TOTAL</span><span>${money(tot)}</span></div>`}</section><section style="display:flex;flex-direction:column;gap:10px"><div class="cashdisp"><div class="muted">EFECTIVO RECIBIDO</div><div class="money">${money(S.received)}</div></div><div class="billgrid">${[50,100,200,500].map(b=>`<button class="bill" data-bill="${b}" ${!o||o.status!=='PENDIENTE'?'disabled':''}>$${b}</button>`).join('')}</div><div class="grid g2"><button id="exact" class="btn primary" ${!o?'disabled':''}>EXACTO</button><button id="clear" class="btn red" ${!o?'disabled':''}>BORRAR</button></div><div class="change ${miss>0?'warn':''}"><b>${miss>0?'FALTA':'CAMBIO'}</b><div class="money">${money(miss>0?miss:chg)}</div></div><button id="pay" class="pay" ${!o||o.status!=='PENDIENTE'||S.received<tot?'disabled':''}>PAGAR Y CERRAR</button></section></div></div>`}
-function music(){return shell(`<main class="wrap"><div class="title"><div><h1>Música ambiente</h1><div class="muted">Simulación del módulo Soundtrack</div></div><span class="status blue">Soundtrack · Demo</span></div><div class="grid g2"><div class="card"><div class="music"><div class="cover">♫</div><div><div class="muted">REPRODUCIENDO AHORA</div><h2>${songs[S.song]}</h2><div class="muted">Ambient Sessions</div><div class="controls"><button class="circle" id="prev">⏮</button><button class="circle" id="toggle">${S.playing?'⏸':'▶'}</button><button class="circle" id="next">⏭</button></div></div></div><div style="margin-top:20px"><div style="display:flex;justify-content:space-between"><b>Volumen</b><b>${S.volume}%</b></div><input id="vol" type="range" min="0" max="100" value="${S.volume}" style="width:100%"></div></div><div class="card"><h3>Playlists</h3>${['Mañana tranquila','Hora pico','Tarde relajada','Cierre del día'].map(p=>`<div class="playlist"><div><b>${p}</b><div class="muted">${p===S.playlist?'Activa':'Disponible'}</div></div><button class="btn ${p===S.playlist?'green':'soft'}" data-playlist="${p}">${p===S.playlist?'ACTIVA':'REPRODUCIR'}</button></div>`).join('')}</div></div></main>`)}
-function terminals(){return shell(`<main class="wrap"><div class="title"><div><h1>Terminales</h1><div class="muted">Vinculación de navegadores por función</div></div><button id="code" class="btn primary">GENERAR CÓDIGO</button></div><div class="grid g2">${S.terms.map(t=>`<div class="card terminal"><div style="display:flex;justify-content:space-between"><div><h3>${t.name}</h3><div class="muted">${t.type}</div></div><span class="status ok">${t.status}</span></div><div class="grid g2" style="margin-top:12px"><button class="btn soft" data-sim="${t.type}">SIMULAR</button><button class="btn red" data-dis="${t.id}">DESACTIVAR</button></div></div>`).join('')}</div></main>`)}
-function security(){return shell(`<main class="wrap"><div class="title"><div><h1>Seguridad</h1><div class="muted">OWNER, dispositivo único y validación por correo</div></div><span class="status ok">PROTEGIDO</span></div><div class="grid g2"><div class="card"><h3>Dispositivo OWNER</h3><p><b>📱 Celular del dueño</b></p><p class="muted">Único dispositivo administrativo autorizado.</p><button id="intruder" class="btn amber">SIMULAR OTRO NAVEGADOR</button></div><div class="card"><h3>Correo real</h3><p class="muted">Un nuevo navegador requiere un código de 6 dígitos enviado al correo del propietario.</p><span class="status blue">SMTP pendiente en prototipo</span></div></div><div class="card" style="margin-top:16px"><h3>Actividad de seguridad</h3>${S.events.length?S.events.slice().reverse().map(e=>`<div class="event"><div>🚨</div><div><b>${e.t}</b><div class="muted">${e.d}</div><small class="muted">${e.time}</small></div></div>`).join(''):'<p class="muted">Sin eventos todavía.</p>'}</div></main>`)}
-function render(){if(!S.logged){$('#app').innerHTML=login();$('#login').onsubmit=e=>{e.preventDefault();S.logged=true;sessionStorage.demo_owner='1';S.view='admin';render();toast('Sesión OWNER iniciada')};return}let pages={admin:dashboard,counter,cashier,music,terminals,security};$('#app').innerHTML=pages[S.view]();$$('[data-view]').forEach(b=>b.onclick=()=>{S.view=b.dataset.view;render()});$('#logout')?.addEventListener('click',()=>{sessionStorage.removeItem('demo_owner');S.logged=false;render()});if(S.view==='counter')bindCounter();if(S.view==='cashier')bindCash();if(S.view==='music')bindMusic();if(S.view==='terminals')bindTerms();if(S.view==='security')bindSec()}
-function bindCounter(){$$('[data-cat]').forEach(b=>b.onclick=()=>{S.cat=b.dataset.cat;render()});$$('[data-prod]').forEach(b=>b.onclick=()=>{let p=products.find(x=>x.id==b.dataset.prod);S.cart[p.id]??={p,q:0};S.cart[p.id].q++;render()});$$('[data-x]').forEach(b=>b.onclick=()=>{delete S.cart[b.dataset.x];render()});$$('[data-qty]').forEach(b=>b.onclick=()=>numpad(+b.dataset.qty));$('#create')?.addEventListener('click',()=>{let items=Object.values(S.cart).map(i=>({id:i.p.id,n:i.p.n,p:i.p.p,q:i.q}));if(!items.length)return;let n=S.orders.reduce((m,o)=>Math.max(m,+o.folio.split('-')[1]||0),0)+1,folio='PED-'+String(n).padStart(5,'0'),total=items.reduce((a,i)=>a+i.p*i.q,0);S.orders.push({folio,status:'PENDIENTE',total,items});S.cart={};save();render();toast(`Comanda ${folio} creada`)})}
-function numpad(id){let i=S.cart[id],val=String(i.q),o=document.createElement('div');o.className='overlay';o.innerHTML=`<div class="numpad"><h3 style="text-align:center">${i.p.n}</h3><div class="npdisp">${val}</div><div class="keys">${['1','2','3','4','5','6','7','8','9','C','0','⌫'].map(k=>`<button data-k="${k}">${k}</button>`).join('')}</div><div class="grid g2" style="margin-top:9px"><button id="cancel" class="btn red">CANCELAR</button><button id="ok" class="btn green">ACEPTAR</button></div></div>`;document.body.appendChild(o);let upd=()=>$('.npdisp',o).textContent=val||'0';$$('[data-k]',o).forEach(b=>b.onclick=()=>{let k=b.dataset.k;if(k==='C')val='';else if(k==='⌫')val=val.slice(0,-1);else if((val+k).length<=3)val+=k;upd()});$('#cancel',o).onclick=()=>o.remove();$('#ok',o).onclick=()=>{i.q=Math.max(1,+val||1);o.remove();render()}}
-function bindCash(){let go=()=>{let c=$('#scan').value.trim().toUpperCase(),o=S.orders.find(x=>x.folio===c);if(!o){S.sel=null;S.received=0;render();toast('Pedido no encontrado')}else{S.sel=o;S.received=0;render();toast(`${c} cargado`)}};$('#search').onclick=go;$('#scan').onkeydown=e=>{if(e.key==='Enter')go()};$$('[data-bill]').forEach(b=>b.onclick=()=>{S.received+=+b.dataset.bill;render()});$('#exact')?.addEventListener('click',()=>{S.received=S.sel?.total||0;render()});$('#clear')?.addEventListener('click',()=>{S.received=0;render()});$('#pay')?.addEventListener('click',()=>{let f=S.sel.folio,c=S.received-S.sel.total;S.sel.status='PAGADO';save();S.sel=null;S.received=0;render();toast(`Venta ${f} pagada · cambio ${money(c)}`)})}
-function bindMusic(){$('#toggle').onclick=()=>{S.playing=!S.playing;render()};$('#next').onclick=()=>{S.song=(S.song+1)%songs.length;render()};$('#prev').onclick=()=>{S.song=(S.song-1+songs.length)%songs.length;render()};$('#vol').oninput=e=>{S.volume=+e.target.value;save();render()};$$('[data-playlist]').forEach(b=>b.onclick=()=>{S.playlist=b.dataset.playlist;render();toast('Playlist cambiada')})}
-function bindTerms(){$('#code').onclick=()=>{let c=Math.floor(100000+Math.random()*900000),o=document.createElement('div');o.className='overlay';o.innerHTML=`<div class="numpad"><h2 style="text-align:center">Código de vinculación</h2><div class="npdisp" style="letter-spacing:5px">${c}</div><button class="btn primary" style="width:100%" id="close">CERRAR</button></div>`;document.body.appendChild(o);$('#close',o).onclick=()=>o.remove()};$$('[data-sim]').forEach(b=>b.onclick=()=>{S.view=b.dataset.sim==='COUNTER'?'counter':'cashier';render()});$$('[data-dis]').forEach(b=>b.onclick=()=>{let t=S.terms.find(x=>x.id==b.dataset.dis);t.status=t.status==='ACTIVA'?'INACTIVA':'ACTIVA';save();render()})}
-function bindSec(){$('#intruder').onclick=()=>{S.events.push({t:'Intento desde dispositivo no autorizado',d:'Acceso bloqueado. En producción se enviaría un código al correo del dueño.',time:new Date().toLocaleString('es-MX')});save();render();toast('🚨 Intento bloqueado')}}
+(()=>{
+const $=(q,r=document)=>r.querySelector(q), $$=(q,r=document)=>[...r.querySelectorAll(q)];
+const money=n=>'$'+Number(n||0).toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2});
+const today=()=>new Date().toLocaleDateString('es-MX');
+const S={
+ device:sessionStorage.getItem('pp_device')||null,
+ ownerView:'home',
+ counterCat:'Pan dulce',
+ worker:'María',
+ cart:{},
+ selectedOrder:null,
+ received:0,
+ grant:JSON.parse(localStorage.getItem('pp_grant')||'null'),
+ orders:JSON.parse(localStorage.getItem('pp_orders')||'[]'),
+ expenses:JSON.parse(localStorage.getItem('pp_expenses')||'[]'),
+ stock:JSON.parse(localStorage.getItem('pp_stock')||'null')||{
+  1:30,2:24,3:15,4:18,5:20,6:40,7:32,8:14,9:10,10:12
+ },
+ products:[
+  {id:1,name:'Coca-Cola 600 ml',cat:'Refrescos',price:20,code:'7501055300075',icon:'🥤',min:5},
+  {id:2,name:'Pepsi 600 ml',cat:'Refrescos',price:19,code:'7501031311309',icon:'🥤',min:5},
+  {id:3,name:'Sprite 600 ml',cat:'Refrescos',price:19,code:'7501055303786',icon:'🥤',min:5},
+  {id:4,name:'Leche 1 L',cat:'Lácteos',price:29,code:'7501020545203',icon:'🥛',min:4},
+  {id:5,name:'Galletas',cat:'Galletas',price:16,code:'7500478012218',icon:'🍪',min:5},
+  {id:6,name:'Concha',cat:'Pan dulce',price:12,code:'PAN001',icon:'🥐',min:8},
+  {id:7,name:'Bolillo',cat:'Bolillos',price:4,code:'PAN002',icon:'🥖',min:10},
+  {id:8,name:'Dona',cat:'Pan dulce',price:14,code:'PAN003',icon:'🍩',min:5},
+  {id:9,name:'Muffin',cat:'Repostería',price:25,code:'PAN004',icon:'🧁',min:3},
+  {id:10,name:'Rebanada pastel',cat:'Repostería',price:35,code:'PAN005',icon:'🍰',min:3}
+ ]
+};
+function save(){
+ localStorage.setItem('pp_orders',JSON.stringify(S.orders));
+ localStorage.setItem('pp_stock',JSON.stringify(S.stock));
+ localStorage.setItem('pp_grant',JSON.stringify(S.grant));
+ localStorage.setItem('pp_expenses',JSON.stringify(S.expenses));
+}
+function toast(m){let t=$('#toast');t.textContent=m;t.classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.add('hidden'),2500)}
+function top(title,sub=''){return `<header class="top"><div class="brand"><div class="logo">🥖</div><div><span>Panadería POS</span><small style="display:block">${sub}</small></div></div><div class="top-actions"><span class="tag info">${title}</span><button id="changeDevice" class="btn soft" style="padding:9px 11px">Cambiar</button></div></header>`}
+function selectDevice(){
+ return `<div class="screen-select"><div class="select-box"><div style="text-align:center"><div style="font-size:54px">🥖</div><h1 style="margin:7px 0">Panadería POS</h1><p style="color:#64748b">Prototipo demostrativo · Selecciona qué dispositivo quieres simular</p></div>
+ <div class="device-grid">
+  <button class="device" data-device="owner"><div class="dicon">📱</div><h3>Dueño</h3><p>Celular · inventario, reportes, caja y administración.</p></button>
+  <button class="device" data-device="counter"><div class="dicon">🧾</div><h3>Mostrador</h3><p>Tablet · venta rápida, ticket y acceso bloqueado a inventario.</p></button>
+  <button class="device" data-device="cashier"><div class="dicon">💵</div><h3>Caja</h3><p>PC touch · escanear ticket, cobrar y registrar gastos.</p></button>
+ </div></div></div>`;
+}
+function ownerHome(){
+ const paid=S.orders.filter(o=>o.status==='PAGADO');
+ const total=paid.reduce((a,o)=>a+o.total,0);
+ const low=S.products.filter(p=>(S.stock[p.id]||0)<=p.min).length;
+ return `${top('DUEÑO','Panel móvil')}<div class="phone-shell">
+ <div class="phone-header"><div style="display:flex;justify-content:space-between;align-items:center"><div><h2>Hola, dueño 👋</h2><div class="mini">${today()}</div></div><span class="tag ok">OWNER</span></div></div>
+ <div class="grid g2" style="margin-bottom:12px">
+  <div class="card metric"><div class="label">VENTAS HOY</div><div class="n">${money(total)}</div></div>
+  <div class="card metric"><div class="label">BAJO STOCK</div><div class="n">${low}</div></div>
+ </div>
+ <div class="phone-actions">
+  ${[
+   ['inventory','📦','Inventario','Stock, escaneo y conteo'],
+   ['sales','🛒','Ventas','Pedidos y ventas pagadas'],
+   ['cash','💵','Caja','Corte y gastos'],
+   ['reports','📊','Reportes','Resumen del negocio'],
+   ['users','👥','Usuarios','Trabajadores y PIN'],
+   ['music','🎵','Música','Ambiente del local'],
+   ['terminals','🖥️','Terminales','Mostrador y Caja'],
+   ['security','🔒','Seguridad','Dispositivo y accesos']
+  ].map(x=>`<button class="phone-action" data-owner="${x[0]}"><div class="ico">${x[1]}</div><b>${x[2]}</b><small>${x[3]}</small></button>`).join('')}
+ </div></div>`;
+}
+function ownerSub(title,body){
+ return `${top('DUEÑO','Panel móvil')}<div class="phone-shell"><div class="backline"><button id="ownerBack">← Inicio</button><h2 style="margin:0">${title}</h2></div>${body}</div>`;
+}
+function inventoryHome(){
+ const low=S.products.filter(p=>(S.stock[p.id]||0)<=p.min);
+ return ownerSub('📦 Inventario',`
+ <div class="phone-actions">
+  <button class="phone-action" data-inv="stock"><div class="ico">📋</div><b>Stock actual</b><small>${S.products.length} productos</small></button>
+  <button class="phone-action" data-inv="scan"><div class="ico">📷</div><b>Escanear</b><small>Buscar o registrar</small></button>
+  <button class="phone-action" data-inv="entry"><div class="ico">📥</div><b>Entrada</b><small>Agregar mercancía</small></button>
+  <button class="phone-action" data-inv="count"><div class="ico">📝</div><b>Inventario</b><small>Conteo físico</small></button>
+  <button class="phone-action" data-inv="low"><div class="ico">⚠️</div><b>Bajo stock</b><small>${low.length} alertas</small></button>
+  <button class="phone-action" data-inv="delegate"><div class="ico">👤</div><b>Delegar</b><small>Autorizar tablet</small></button>
+ </div>`);
+}
+function stockView(){
+ return ownerSub('📋 Stock actual',`<div class="card">${S.products.map(p=>`<div style="display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #e2e8f0"><div style="font-size:28px">${p.icon}</div><div><b>${p.name}</b><div style="color:#64748b;font-size:12px">${p.cat}</div></div><div style="text-align:right"><b style="font-size:22px">${S.stock[p.id]||0}</b><div>${(S.stock[p.id]||0)<=p.min?'<span class="tag bad">BAJO</span>':'<span class="tag ok">OK</span>'}</div></div></div>`).join('')}</div>`);
+}
+function scanView(){
+ return ownerSub('📷 Escanear producto',`
+ <div class="scan-box"><div><div class="scan-reticle"></div><h3>Apunta al código de barras</h3><p style="color:#94a3b8">Prototipo: simula la lectura escribiendo el código.</p></div></div>
+ <div class="field" style="margin-top:14px"><label>Código</label><input class="input" id="scanCode" placeholder="Ej. 7501055300075"></div>
+ <button class="btn primary" id="simulateScan" style="width:100%">📷 SIMULAR ESCANEO</button>
+ <div class="notice" style="margin-top:12px">Prueba: <b>7501055300075</b> para Coca-Cola, o escribe cualquier otro código para simular un producto nuevo.</div>
+ <div id="scanResult" style="margin-top:14px"></div>`);
+}
+function delegateView(){
+ const g=S.grant;
+ return ownerSub('👤 Delegar inventario',`
+ <div class="card">
+  <div class="field"><label>Trabajador</label><select id="grantWorker" class="input"><option>María</option><option>Ana</option><option>Encargada</option></select></div>
+  <div class="field"><label>Categoría autorizada</label><select id="grantCat" class="input"><option>Refrescos</option><option>Lácteos</option><option>Galletas</option><option>Todo</option></select></div>
+  <div class="field"><label>Duración</label><select id="grantMinutes" class="input"><option value="60">1 hora</option><option value="30">30 minutos</option><option value="120">2 horas</option></select></div>
+  <button class="btn primary" id="generateGrant" style="width:100%">🔑 GENERAR CÓDIGO</button>
+  ${g?`<div style="margin-top:16px;text-align:center"><div class="tag ok">AUTORIZACIÓN ACTIVA</div><div style="font-size:38px;font-weight:950;letter-spacing:6px;margin:12px 0">${g.code}</div><div>${g.worker} · ${g.cat}</div><small style="color:#64748b">PIN demo del trabajador: 1234</small></div>`:''}
+ </div>`);
+}
+function genericOwner(title,icon,text){
+ return ownerSub(`${icon} ${title}`,`<div class="card" style="text-align:center;padding:32px"><div style="font-size:60px">${icon}</div><h2>${title}</h2><p style="color:#64748b">${text}</p><div class="notice">Esta pantalla queda representada en el prototipo. La versión completa se conectará a MySQL y FastAPI.</div></div>`);
+}
+function ownerRender(){
+ if(S.ownerView==='home')return ownerHome();
+ if(S.ownerView==='inventory')return inventoryHome();
+ if(S.ownerView==='stock')return stockView();
+ if(S.ownerView==='scan')return scanView();
+ if(S.ownerView==='delegate')return delegateView();
+ if(S.ownerView==='sales')return genericOwner('Ventas','🛒','Consulta pedidos pendientes, ventas pagadas y quién atendió.');
+ if(S.ownerView==='cash')return genericOwner('Caja','💵','Consulta fondo, ventas, gastos, efectivo esperado y diferencias del turno.');
+ if(S.ownerView==='reports')return genericOwner('Reportes','📊','Resumen diario de ventas, productos y desempeño por trabajador.');
+ if(S.ownerView==='users')return genericOwner('Usuarios','👥','Alta de trabajadores, PIN, activación y permisos.');
+ if(S.ownerView==='music')return genericOwner('Música','🎵','Control de música ambiente del negocio.');
+ if(S.ownerView==='terminals')return genericOwner('Terminales','🖥️','Mostrador y Caja vinculados y bloqueados por función.');
+ return genericOwner('Seguridad','🔒','Dispositivo OWNER, alertas y accesos no autorizados.');
+}
+function counter(){
+ const cats=[...new Set(S.products.map(p=>p.cat))], visible=S.products.filter(p=>p.cat===S.counterCat);
+ const items=Object.values(S.cart), total=items.reduce((a,i)=>a+i.p.price*i.q,0);
+ return `${top('MOSTRADOR','Tablet COUNTER')}<main class="wrap">
+ <div class="hero"><div><h1>🧾 Mostrador</h1><p>Atendiendo: <b>${S.worker}</b> · cada toque agrega 1 pieza.</p></div><div><button class="btn amber" id="inventoryLock">🔒 Inventario</button></div></div>
+ <div class="products-layout"><section><div class="cats">${cats.map(c=>`<button class="cat ${c===S.counterCat?'active':''}" data-cat="${c}">${c}</button>`).join('')}</div>
+ <div class="prod-grid">${visible.map(p=>`<button class="prod" data-prod="${p.id}"><div class="pi">${p.icon}</div><div class="pn">${p.name}</div><div style="color:#64748b;font-size:12px">Stock: ${S.stock[p.id]||0}</div><div class="pp">${money(p.price)}</div></button>`).join('')}</div></section>
+ <aside class="card cart"><h2 style="margin-top:0">🧾 Pedido</h2><div class="cart-list">${items.length?items.map(i=>`<div class="cart-row"><div><b>${i.p.name}</b><div style="color:#64748b">${money(i.p.price)} c/u</div></div><button class="qty">${i.q}</button><button class="remove" data-rem="${i.p.id}">×</button></div>`).join(''):'<div style="color:#64748b;text-align:center;padding:30px">Toca un producto para comenzar.</div>'}</div>
+ <div class="total"><span>TOTAL</span><span>${money(total)}</span></div><button class="btn green" id="printOrder" style="margin-top:14px;padding:18px;font-size:19px" ${items.length?'':'disabled'}>🖨️ IMPRIMIR PASE A CAJA</button></aside></div></main>`;
+}
+function cashier(){
+ const o=S.selectedOrder, total=o?.total||0, missing=Math.max(0,total-S.received), change=Math.max(0,S.received-total);
+ return `${top('CAJA','PC + monitor touch')}<div class="cash-bg">
+ <div class="scanline"><input id="cashScan" placeholder="Escanear PED-00001"><button class="btn primary" id="cashSearch">🔍 BUSCAR</button></div>
+ <div class="cash-grid"><section class="cash-panel">${!o?`<div style="min-height:530px;display:grid;place-items:center;text-align:center"><div><div style="font-size:74px">▥</div><h2>Escanea el ticket del cliente</h2><p style="color:#64748b">El lector enviará automáticamente el folio PED-XXXXX.</p></div></div>`:
+ `<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #e2e8f0;padding-bottom:12px"><h1 style="margin:0">${o.folio}</h1><span class="tag ${o.status==='PAGADO'?'ok':'warn'}">${o.status}</span></div>
+ <div style="margin-top:14px">${o.items.map(i=>`<div style="display:grid;grid-template-columns:70px 1fr 110px;gap:10px;padding:11px;background:#f8fafc;border-radius:13px;margin-bottom:8px"><b style="font-size:24px">${i.q}</b><div><b>${i.name}</b><div style="color:#64748b">${money(i.price)} c/u</div></div><b style="text-align:right">${money(i.q*i.price)}</b></div>`).join('')}</div>
+ <div class="total" style="font-size:45px;margin-top:15px"><span>TOTAL</span><span>${money(o.total)}</span></div>`}
+ </section>
+ <section style="display:flex;flex-direction:column;gap:10px">
+  <div class="cashbox"><div style="color:#94a3b8;font-weight:900">EFECTIVO RECIBIDO</div><div class="money">${money(S.received)}</div></div>
+  <div class="bill-grid">${[50,100,200,500].map(v=>`<button class="bill" data-bill="${v}" ${!o||o.status!=='PENDIENTE'?'disabled':''}>$${v}</button>`).join('')}</div>
+  <div class="grid g2"><button class="btn primary" id="exact" ${!o?'disabled':''}>💵 Exacto</button><button class="btn red" id="clearCash" ${!o?'disabled':''}>🗑️ Borrar</button></div>
+  <div class="change ${missing>0?'warn':''}"><div style="font-weight:900">${missing>0?'FALTA':'CAMBIO'}</div><div class="money">${money(missing>0?missing:change)}</div></div>
+  <button class="pay" id="pay" ${!o||o.status!=='PENDIENTE'||S.received<total?'disabled':''}>✅ PAGAR Y CERRAR</button>
+  <button class="btn amber" id="expense">💸 Registrar gasto</button>
+ </section></div></div>`;
+}
+function inventoryTablet(){
+ const g=S.grant, products=S.products.filter(p=>!g||g.cat==='Todo'||p.cat===g.cat);
+ return `${top('INVENTARIO','Tablet autorizada')}<main class="wrap"><div class="hero"><div><h1>📝 Inventario delegado</h1><p>${g?`${g.worker} · ${g.cat}`:''}</p></div><button id="finishInventory" class="btn red">🔒 Terminar y bloquear</button></div>
+ <div class="card"><table class="table"><thead><tr><th>Producto</th><th>Sistema</th><th>Físico</th><th>Diferencia</th></tr></thead><tbody>
+ ${products.map(p=>`<tr><td><b>${p.icon} ${p.name}</b></td><td>${S.stock[p.id]||0}</td><td><input class="input phys" data-id="${p.id}" type="number" value="${S.stock[p.id]||0}" style="max-width:110px"></td><td id="diff-${p.id}">0</td></tr>`).join('')}
+ </tbody></table><button id="saveInventory" class="btn green" style="width:100%;margin-top:14px">💾 GUARDAR INVENTARIO</button></div></main>`;
+}
+function render(){
+ const a=$('#app');
+ if(!S.device){a.innerHTML=selectDevice();bindSelect();return}
+ a.innerHTML=S.device==='owner'?ownerRender():S.device==='counter'?counter():S.device==='cashier'?cashier():inventoryTablet();
+ bindCommon();
+ if(S.device==='owner')bindOwner();
+ if(S.device==='counter')bindCounter();
+ if(S.device==='cashier')bindCashier();
+ if(S.device==='inventory')bindInventoryTablet();
+}
+function bindSelect(){
+ $$('[data-device]').forEach(b=>b.onclick=()=>{S.device=b.dataset.device;sessionStorage.setItem('pp_device',S.device);render()});
+}
+function bindCommon(){
+ $('#changeDevice')?.addEventListener('click',()=>{S.device=null;sessionStorage.removeItem('pp_device');render()});
+}
+function bindOwner(){
+ $('#ownerBack')?.addEventListener('click',()=>{S.ownerView=S.ownerView==='inventory'?'home':'inventory';render()});
+ $$('[data-owner]').forEach(b=>b.onclick=()=>{S.ownerView=b.dataset.owner;render()});
+ $$('[data-inv]').forEach(b=>b.onclick=()=>{S.ownerView=b.dataset.inv;render()});
+ $('#simulateScan')?.addEventListener('click',()=>{
+   const code=$('#scanCode').value.trim(); if(!code)return toast('Escribe o simula un código');
+   const p=S.products.find(x=>x.code===code), r=$('#scanResult');
+   if(p)r.innerHTML=`<div class="card"><div style="font-size:42px">${p.icon}</div><h3>${p.name}</h3><p>Stock actual: <b>${S.stock[p.id]||0}</b><br>Precio: <b>${money(p.price)}</b></p><button class="btn green" id="quickEntry">📥 Registrar +10</button></div>`;
+   else r.innerHTML=`<div class="card"><h3>➕ Producto nuevo</h3><div class="field"><label>Código</label><input class="input" value="${code}" readonly></div><div class="field"><label>Nombre</label><input class="input" value="Nuevo producto"></div><div class="field"><label>Categoría</label><select class="input"><option>Refrescos</option><option>Lácteos</option><option>Galletas</option></select></div><div class="field"><label>Precio</label><input class="input" type="number" value="20"></div><button class="btn primary" style="width:100%" onclick="alert('Producto registrado · simulación')">✅ Guardar producto</button></div>`;
+   $('#quickEntry')?.addEventListener('click',()=>{S.stock[p.id]=(S.stock[p.id]||0)+10;save();toast('Entrada +10 registrada');render()});
+ });
+ $('#generateGrant')?.addEventListener('click',()=>{
+   S.grant={worker:$('#grantWorker').value,cat:$('#grantCat').value,minutes:Number($('#grantMinutes').value),code:String(Math.floor(100000+Math.random()*900000)),active:true};
+   save();render();toast('Autorización temporal generada');
+ });
+}
+function bindCounter(){
+ $$('[data-cat]').forEach(b=>b.onclick=()=>{S.counterCat=b.dataset.cat;render()});
+ $$('[data-prod]').forEach(b=>b.onclick=()=>{let p=S.products.find(x=>x.id===Number(b.dataset.prod));S.cart[p.id]||={p,q:0};S.cart[p.id].q++;render()});
+ $$('[data-rem]').forEach(b=>b.onclick=()=>{delete S.cart[b.dataset.rem];render()});
+ $('#printOrder')?.addEventListener('click',()=>{
+   const items=Object.values(S.cart).map(i=>({id:i.p.id,name:i.p.name,price:i.p.price,q:i.q}));
+   const next=S.orders.reduce((m,o)=>Math.max(m,Number(o.folio.split('-')[1])||0),0)+1, folio='PED-'+String(next).padStart(5,'0');
+   const total=items.reduce((a,i)=>a+i.price*i.q,0);
+   const order={folio,status:'PENDIENTE',worker:S.worker,total,items,time:new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})};
+   S.orders.push(order);S.cart={};save();showTicket(order);
+ });
+ $('#inventoryLock')?.addEventListener('click',()=>showUnlock());
+}
+function showTicket(o){
+ const ov=document.createElement('div');ov.className='overlay';ov.innerHTML=`<div class="modal"><h2 style="text-align:center">🖨️ Pase a Caja</h2><div class="ticket"><div style="text-align:center"><b>PANADERÍA</b><br>PASE A CAJA<br><br><b>${o.folio}</b><br>Atendió: ${o.worker}</div><hr>${o.items.map(i=>`${i.q} x ${i.name}<span style="float:right">${money(i.q*i.price)}</span><br>`).join('')}<hr><b>TOTAL <span style="float:right">${money(o.total)}</span></b><br><br><div style="text-align:center">PENDIENTE DE PAGO</div><div class="barcode"></div><div style="text-align:center">${o.folio}</div></div><div class="modal-actions"><button class="btn primary" id="closeTicket">LISTO</button></div></div>`;document.body.appendChild(ov);$('#closeTicket',ov).onclick=()=>{ov.remove();render()};
+}
+function showUnlock(){
+ const ov=document.createElement('div');ov.className='overlay';ov.innerHTML=`<div class="modal"><h2>🔒 Inventario bloqueado</h2><p style="color:#64748b">Sólo se abre con autorización temporal del dueño.</p><div class="field"><label>Código del dueño</label><input class="input" id="grantCode" maxlength="6"></div><div class="field"><label>PIN trabajador</label><input class="input" id="workerPin" type="password" maxlength="4"></div><div class="notice">PIN demo: <b>1234</b></div><div class="modal-actions"><button class="btn soft" id="cancelUnlock">Cancelar</button><button class="btn primary" id="doUnlock">Desbloquear</button></div></div>`;document.body.appendChild(ov);
+ $('#cancelUnlock',ov).onclick=()=>ov.remove();
+ $('#doUnlock',ov).onclick=()=>{if(!S.grant?.active||$('#grantCode',ov).value!==S.grant.code||$('#workerPin',ov).value!=='1234')return toast('Código o PIN incorrecto');ov.remove();S.device='inventory';sessionStorage.setItem('pp_device','inventory');render()};
+}
+function bindCashier(){
+ const search=()=>{let c=$('#cashScan').value.trim().toUpperCase(),o=S.orders.find(x=>x.folio===c);if(!o){S.selectedOrder=null;S.received=0;render();return toast('Pedido no encontrado')}S.selectedOrder=o;S.received=0;render();toast(o.status==='PAGADO'?'Este pedido ya está pagado':'Pedido cargado')};
+ $('#cashSearch').onclick=search;$('#cashScan').onkeydown=e=>{if(e.key==='Enter')search()};
+ $$('[data-bill]').forEach(b=>b.onclick=()=>{S.received+=Number(b.dataset.bill);render()});
+ $('#exact')?.addEventListener('click',()=>{S.received=S.selectedOrder?.total||0;render()});
+ $('#clearCash')?.addEventListener('click',()=>{S.received=0;render()});
+ $('#pay')?.addEventListener('click',()=>{
+   if(!S.selectedOrder||S.received<S.selectedOrder.total)return;
+   const o=S.selectedOrder,chg=S.received-o.total;o.status='PAGADO';
+   o.items.forEach(i=>S.stock[i.id]=Math.max(0,(S.stock[i.id]||0)-i.q));
+   S.selectedOrder=null;S.received=0;save();render();toast(`Venta pagada · cambio ${money(chg)}`);
+ });
+ $('#expense')?.addEventListener('click',()=>{let v=prompt('Monto del gasto (simulación):','100');if(v&&Number(v)>0){S.expenses.push({amount:Number(v),time:new Date().toISOString()});save();toast('Gasto registrado')}});
+}
+function bindInventoryTablet(){
+ $$('.phys').forEach(i=>i.oninput=()=>{$('#diff-'+i.dataset.id).textContent=Number(i.value)-(S.stock[i.dataset.id]||0)});
+ $('#saveInventory').onclick=()=>{$$('.phys').forEach(i=>S.stock[i.dataset.id]=Math.max(0,Number(i.value)||0));save();toast('Inventario guardado');render()};
+ $('#finishInventory').onclick=()=>{S.grant=null;save();S.device='counter';sessionStorage.setItem('pp_device','counter');render();toast('Inventario terminado · acceso bloqueado')};
+}
 render();
-</script></body></html>
+})();
+</script>
+</body>
+</html>
